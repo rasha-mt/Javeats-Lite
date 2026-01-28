@@ -125,5 +125,75 @@ The goal of Javeats Lite is to simplify the food ordering experience by providin
 
 ![Customer Sequence diagram ](sequenceDiagrams/customer-sequence-diagram.png)
 
+---
+
+### Pseudo Code /Restauarnt User and Customer
+
+```pseudo
+FUNCTION CreateRestaurant(RestaurantData)
+    IF NOT hasPermission(user, "MANAGE_RESTAURANT") THEN
+        RETURN "Permission denied"
+    END IF
+
+    restaurant = NEW Restaurant(RestaurantData)
+
+    SAVE(restaurant)
+    RETURN "restaurant created"
+END FUNCTION
+```
+
+```pseudo
+FUNCTION CreateMenu(restaurantId, menuData)
+    IF NOT hasPermission(user, "MANAGE_MENU") THEN
+        RETURN "Permission denied"
+    END IF
+
+    menu = NEW Menu(menuData)
+    menu.restaurantId ← restaurantId
+
+    SAVE(menu)
+    RETURN "Menu created"
+END FUNCTION
+```
+
+```pseudo
+FUNCTION GetTopRatedRestaurants(limit)
+    restaurants = DB.getAllActiveRestaurants()
+
+    FOR EACH restaurant IN restaurants
+        ratings = DB.getRestaurantRatings(restaurant.id)
+
+        IF ratings IS NOT EMPTY
+            restaurant.avgRating = AVERAGE(ratings)
+        ELSE
+            restaurant.avgRating = 0
+        END IF
+    END FOR
+
+    SORT restaurants BY avgRating DESC
+    RETURN TOP restaurants LIMIT limit
+END FUNCTION
+
+```
+
+```pseudo
+FUNCTION GetMenuItems(menuId)
+
+    menus = DB.findMenusItems(menuId)
+
+    IF menus IS EMPTY THEN
+        RETURN "No menus found"
+    END IF
+
+    FOR EACH menu IN menus
+        menu.items = DB.findMenuItemsByMenu(menu.id)
+    END FOR
+
+    RETURN menus
+END FUNCTION
+
+```
+
+
 
 
