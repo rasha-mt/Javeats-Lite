@@ -113,4 +113,12 @@ The goal of Javeats Lite is to simplify the food ordering experience by providin
 ![Customer flowchart ](ERD/customer_flowchart.png)
 
 
+### Restauarnt and Menu Sequence Diagram
+**Restaurant User**
+![Restaurant Sequence diagram ](ERD/resturant-sequence-diagram.png)
+
+**Customer**
+![Customer flowchart ](ERD/customer_flowchart.png)
+
+
 
